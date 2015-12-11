@@ -3,22 +3,24 @@
 
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
-			</Pattern>
+			<Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
 		</encoder>
 	</appender>
 
 	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
 		<file>masymos.log</file>
 		<encoder>
-			<Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
-			</Pattern>
+			<Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
 		</encoder>
 	</appender>
 
-	<logger name="de.unirostock.sems.masymos" level="TRACE" />
+	<logger name="de.unirostock.sems.masymos" level="TRACE">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+	</logger>
+	<logger name="org.apache.http" level="WARN" />
 
-	<root level="debug">
+	<root level="WARN">
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="FILE" />
 	</root>
