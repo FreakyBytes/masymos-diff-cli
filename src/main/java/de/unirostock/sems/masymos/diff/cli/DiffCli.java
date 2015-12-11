@@ -28,6 +28,12 @@ public class DiffCli {
 			else if(args[i].equals("-limit")) {
 				limit = Long.parseLong( args[++i] );
 			}
+			else if(args[i].equals("-threads")) {
+				DiffExecutor.setThreadPoolSize( Integer.parseInt(args[++i]) );
+			}
+			else if(args[i].equals("-queryLimit")) {
+				DiffExecutor.setQueryLimit( Integer.parseInt(args[++i]) );
+			}
 		}
 
 		// create neo4j database
