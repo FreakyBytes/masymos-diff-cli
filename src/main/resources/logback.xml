@@ -14,9 +14,9 @@
 		</encoder>
 	</appender>
 
-	<logger name="de.unirostock.sems.masymos" level="TRACE">
-		<appender-ref ref="STDOUT" />
-		<appender-ref ref="FILE" />
+	<logger name="de.unirostock.sems.masymos" level="DEBUG">
+<!-- 		<appender-ref ref="STDOUT" /> -->
+<!-- 		<appender-ref ref="FILE" /> -->
 	</logger>
 	<logger name="org.apache.http" level="WARN" />
 
