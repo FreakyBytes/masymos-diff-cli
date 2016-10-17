@@ -1,10 +1,13 @@
 package de.unirostock.sems.masymos.diff.cli;
 
+import java.util.concurrent.ExecutionException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.unirostock.sems.masymos.configuration.Config;
 import de.unirostock.sems.masymos.database.Manager;
+import de.unirostock.sems.masymos.diff.DiffCleanJob.RemovalMethod;
 import de.unirostock.sems.masymos.diff.DiffExecutor;
 
 public class DiffCli {
@@ -46,7 +49,12 @@ public class DiffCli {
 		if( cleanDiffs ) {
 			log.info("Removing existing diffs enabled");
 			start = System.currentTimeMillis();
-			executor.removeAllDiffs();
+			try {
+				executor.cleanDiffs(RemovalMethod.TRAVERSAL, true);
+			} catch (InterruptedException | ExecutionException e) {
+				log.error("Error while cleaning diffs", e);
+				System.exit(1);
+			}
 			log.info("Cleaned up in {} mseconds", (System.currentTimeMillis() - start));
 		}
 
@@ -54,7 +62,14 @@ public class DiffCli {
 		if( limit > 0 )
 			log.info("Limit is set to {}", limit);
 		start = System.currentTimeMillis();
-		executor.execute(limit);
+		try {
+			executor.generateDiffs(limit, true);
+		} catch (InterruptedException | ExecutionException e) {
+			log.error("Error while submitting diffs", e);
+			System.exit(1);
+		}
+		// now wait, until everything is done
+		executor.terminate();
 		log.info("done in " + (System.currentTimeMillis() - start)
 				+ "ms");
 
