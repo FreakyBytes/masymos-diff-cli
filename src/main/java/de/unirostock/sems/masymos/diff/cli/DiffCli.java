@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import de.unirostock.sems.masymos.configuration.Config;
 import de.unirostock.sems.masymos.database.Manager;
-import de.unirostock.sems.masymos.diff.DiffCleanJob.RemovalMethod;
+import de.unirostock.sems.masymos.diff.DiffCleanTask.RemovalMethod;
 import de.unirostock.sems.masymos.diff.DiffExecutor;
 
 public class DiffCli {
